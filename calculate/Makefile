@@ -2,8 +2,6 @@ CC = gcc
 CFLAGS = -g -Wall
 LDFLAGS = -shared
 
-
-VPATH = src:../headers
 LIB = add.so div.so mul.so sub.so
 OBJ = main.o add.o div.o mul.o sub.o
 
@@ -16,9 +14,6 @@ $(EXECUTABLE):
 
 %.o: %.c
 	$(CC) $^ -fPIC -c
-
-#.so: *.o
-#	($CC) $(LDFLAGS) $^ -o $@
 
 add.so: add.o
 	$(CC) $(LDFLAGS) $^ -o $@
@@ -39,4 +34,3 @@ make_dir:
 clean:
 	rm -rf ./lib ./obj $(EXECUTABLE)
 	rm -rf *.o *.so
-

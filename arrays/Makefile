@@ -1,14 +1,7 @@
 CC = gcc
-CFLAGS = -g -Wall
-LDFLAGS = -shared
+EXEC = arr
 
-#LIB = *.so
-LIB = add.so div.so mul.so sub.so
-OBJ = main.o add.o div.o mul.o sub.o
-
-EXECUTABLE = calc
-
-all: $(EXECUTABLE) $(LIB) $(OBJ) make_dir
+all: $(EXEC)  make_dir
  
 $(EXECUTABLE): 
 	$(CC) main.c -o $@ -ldl

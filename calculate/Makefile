@@ -1,19 +1,22 @@
 CC = gcc
 CFLAGS = -g -Wall
 LDFLAGS = -shared
+MAIN = src/main.c
 SRC_DIR = src
-SOURCE = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(patsubst %.c,%.o,$(SOURCE))
+OBJ_DIR = obj
+LIB_DIR = lib
+SRC = $(wildcard $(SRC_DIR)/*.c)
+OBJ = $(wildcard $(OBJ_DIR)/*.o)
 LIB = add.so div.so mul.so sub.so
 EXEC = calc
 
 
-all: $(EXEC) $(OBJ) $(LIB) make_dir
+all: $(EXEC) $(OBJ)$(LIB)
 
-$(EXEC): $(OBJ) $(SOURCE)
-	$(CC) src/main.c -o $@ -ldl
+$(EXEC): $(SRC)
+	$(CC) $(MAIN) -o $@ -ldl
 
-%.o: %.c
+$(OBJ): $(SRC)
 	$(CC) $^ -fPIC -c
 
 
@@ -29,11 +32,11 @@ mul.so: mul.o
 sub.so: sub.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
-make_dir:
-	mkdir -p ./lib && mv $(LIB) ./lib
-	mkdir -p ./obj && mv *.o ./obj
-	
+ 
+#make_dir:
+#	mkdir -p ./lib && mv $(LIB) ./lib
+#	mkdir -p ./obj && mv *.o ./obj
+
 clean:
-	rm -rf ./lib ./obj $(EXEC)
-	rm -rf *.o *.so
+	rm -rf $(EXEC) *.o *.so
 

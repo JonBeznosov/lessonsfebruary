@@ -12,13 +12,15 @@ LIB = add.so div.so mul.so sub.so
 EXEC = calc
 
 
-all: calc *.c *.o $(LIB)
+all: calc *.c $(OBJ) $(LIB)
 
 calc: main.c
 	$(CC) main.c -o $@ -ldl
 
 *.o: *.c
+	cd obj
 	$(CC) $^ -fPIC -c
+
 
 
 add.so: add.o

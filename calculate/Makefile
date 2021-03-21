@@ -7,16 +7,17 @@ OBJ_DIR = obj
 LIB_DIR = lib
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(wildcard $(OBJ_DIR)/*.o)
+#$(OBJ) = $(wildcard *.o)
 LIB = add.so div.so mul.so sub.so
 EXEC = calc
 
 
-all: $(EXEC) $(OBJ)$(LIB)
+all: calc *.c *.o $(LIB)
 
-$(EXEC): $(SRC)
-	$(CC) $(MAIN) -o $@ -ldl
+calc: main.c
+	$(CC) main.c -o $@ -ldl
 
-$(OBJ): $(SRC)
+*.o: *.c
 	$(CC) $^ -fPIC -c
 
 
@@ -32,11 +33,11 @@ mul.so: mul.o
 sub.so: sub.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
- 
+
 #make_dir:
 #	mkdir -p ./lib && mv $(LIB) ./lib
 #	mkdir -p ./obj && mv *.o ./obj
 
 clean:
-	rm -rf $(EXEC) *.o *.so
+	rm -rf calc *.o *.so
 

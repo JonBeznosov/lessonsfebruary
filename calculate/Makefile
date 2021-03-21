@@ -14,6 +14,7 @@ $(EXEC): $(OBJ) $(SOURCE)
 	$(CC) src/main.c -o $@ -ldl
 
 %.o: %.c
+
 	$(CC) $^ -fPIC -c
 
 
@@ -32,7 +33,7 @@ sub.so: sub.o
 make_dir:
 	mkdir -p ./lib && mv $(LIB) ./lib
 	mkdir -p ./obj && mv *.o ./obj
-	
+
 clean:
 	rm -rf ./lib ./obj $(EXEC)
 	rm -rf *.o *.so

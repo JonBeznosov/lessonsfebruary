@@ -6,37 +6,22 @@ LIB_CATALOG = .lib/
 SOURCE = $(wildcard *.c)
 OBJ_ALL = $(wildcard *.o)
 OBJ = $(patsubst %.c,$(OBJ_CATALOG)%.o,$(SOURCE))
-#LIB = $(patsubst %.o,$(LIB_CATALOG)%.so,$(OBJ_ALL))
-LIB = add.so div.so mul.so sub.so
+LIB = $(patsubst %.o,$(LIB_CATALOG)%.so,$(wildcard *.o))
+#LIB = add.so div.so mul.so sub.so
 
 CC = gcc
 CFLAGS = -g -Wall
 LDFLAGS = -shared
 
-all: $(EXEC) $(OBJ)
-
+all: $(EXEC) $(OBJ) $(LIB)
 $(EXEC): $(OBJ)
 	$(CC) main.c -o $@ -ldl
 	
 $(OBJ_CATALOG)%.o: %.c
 	$(CC) $^ -fPIC -c
 
-	
-
-
-#calc: src/main.c
-#	$(CC) $^ -o $@ -ldl
-	
-#$(OBJ_DIR)%.o: src/%c
-#	$(CC) $^ -fPIC -c 
-#*.o: src/*.c
-#	$(CC) $^ -fPIC -c
-#all: $(EXEC) $(OBJ)$(LIB)
-#$(EXEC): $(SRC)
-#	$(CC) $(MAIN) -o $@ -ldl
-#$(OBJ): $(SRC)
-#	$(CC) $^ -fPIC -c
-
+$(LIB_CATALOG)%.so: $(OBJ_CATALOG)%.o
+	$(CC) $(LDFLAGS) $^ -o $@
 
 #add.so: add.o
 #	$(CC) $(LDFLAGS) $^ -o $@

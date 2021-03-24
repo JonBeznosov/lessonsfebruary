@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-	void *ext_library;	
+	void *ext_library;
 	double value_1,value_2;
 
 	printf("Input value_1 = ");
@@ -53,5 +53,5 @@ int main(int argc, char* argv[])
 		dlclose(ext_library);
 	}
 
-	return 0;	
+	return 0;
 }

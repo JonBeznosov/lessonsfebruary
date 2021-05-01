@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
 	DIR *dir = NULL;
 
-	dir = opendir("lib"); 
+	dir = opendir("lib");
 	if (errno == ENOTDIR){
 
 	    perror("opendir");
@@ -32,13 +32,13 @@ int main(int argc, char* argv[])
 	struct dirent *entry = NULL;
 	while ((entry = readdir(dir)) != NULL)
 	{
-		char file_path[262] = {0};
+		char file_path[270] = {0};
 		if (entry->d_name[0] == '.')
 		{
 			continue;
 		}
 
-		sprintf(file_path, "./lib/%s", entry->d_name);
+		sprintf(file_path, "../lib/./lib/%s", entry->d_name);
 		ext_library = dlopen(file_path,RTLD_LAZY);
 		if (!ext_library)
 		{

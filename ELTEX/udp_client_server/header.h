@@ -14,7 +14,7 @@
 #define handle_error(msg) \
     do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
-#define SERVER_PORT 7711
+#define SERVER_PORT 1188
 #define SERVER_ADDR "127.0.0.1"
 #define BUF_SIZE 256
 

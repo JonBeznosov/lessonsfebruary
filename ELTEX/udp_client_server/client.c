@@ -3,13 +3,13 @@
 int main(int argc, char *argv[])
 {
     struct sockaddr_in  svaddr, claddr;
-    int                 sfd;
+    int                 fd;
     size_t              msg_len;   
     ssize_t             num_bytes;           
     char                buf[BUF_SIZE];
 
-    sfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (sfd == -1)
+    fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    if (fd == -1)
         handle_error("socket");
 
     memset(&svaddr, 0, sizeof(struct sockaddr_in));
@@ -25,18 +25,18 @@ int main(int argc, char *argv[])
         msg_len = strlen(buf);
         buf[msg_len - 1] = '\0';
 
-        if (sendto(sfd, buf, msg_len, 0, (struct sockaddr *) &svaddr, 
+        if (sendto(fd, buf, msg_len, 0, (struct sockaddr *) &svaddr, 
                   sizeof(struct sockaddr_in)) != msg_len)
             handle_error("sendto");
 
-        num_bytes = recvfrom(sfd, buf, BUF_SIZE, 0, NULL, NULL);
+        num_bytes = recvfrom(fd, buf, BUF_SIZE, 0, NULL, NULL);
         if (num_bytes == -1)
             handle_error("recvfrom");
 
         printf("Recieve message from server: %s\n", buf);
     }
 
-    if (close(sfd) == -1)
+    if (close(fd) == -1)
         handle_error("close");
 
     return 0;

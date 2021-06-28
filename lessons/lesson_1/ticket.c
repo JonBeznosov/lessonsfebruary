@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #define N 3
 
-int summa_number(int *number, int *sum1, int *sum2)
+int summa_number(
+    int *number,
+    int *sum1, 
+    int *sum2)
 {
+
     for (int i = 0; i < N; i++)
     {
     	*sum1 += (*number % 10);
@@ -20,7 +25,7 @@ int summa_number(int *number, int *sum1, int *sum2)
 
 }
 
-int main() {
+int main(void) {
 	int number = 0;
 	int sum1 = 0; 
 	int sum2 = 0; 	

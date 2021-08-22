@@ -8,7 +8,9 @@ int main(int argc, char *argv[])
 
     sfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sfd == -1)
+    {
         handle_error("socket");
+    }
 
     memset(&svaddr, 0, sizeof(struct sockaddr_in));
     svaddr.sin_family = AF_INET;
@@ -17,23 +19,32 @@ int main(int argc, char *argv[])
 
     cfd = connect(sfd, (struct sockaddr *) &svaddr, sizeof(struct sockaddr_in));
     if (cfd == -1)
+    {
         handle_error("connect");
+    }
 
-    for (;;) {  
+    for (;;)
+    {  
         printf("Send message to server: ");
         fgets(buf, BUF_SIZE, stdin);
 
         if (send(sfd, buf, BUF_SIZE, 0) == -1)
+        {
             handle_error("send");
+        }
 
         if (recv(sfd, buf, BUF_SIZE, 0) == -1)
+        {
             handle_error("recv");
-
+        }
+            
         printf("Recieve message from server: %s\n", buf);
     }
 
     if (close(sfd) == -1)
+    {
         handle_error("close");
-
+    }
+    
     return 0;
 }

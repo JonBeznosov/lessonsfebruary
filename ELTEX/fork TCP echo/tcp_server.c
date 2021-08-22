@@ -20,24 +20,32 @@ static void handleRequest(int cfd)
     char    buf[BUF_SIZE];
     ssize_t num_read;
 
-    for (;;) {
+    for (;;)
+    {
         num_read = recv(cfd, buf, BUF_SIZE, 0);
 
         if (num_read == 0)
+        {
             exit;
+        }
 
         if (num_read == -1)
+        {
             handle_error("recv");
+        }
 
         printf("Receive message from client: %s\n", buf);
 
         if (send(cfd, buf, BUF_SIZE, 0) == -1)
+        {   
             handle_error("send");
+        }
     }
     
     if (close(cfd) == -1)
+    {
         handle_error("close");
-    
+    }
 }
 
 int main(int argc, char *argv[])
@@ -50,11 +58,15 @@ int main(int argc, char *argv[])
     sa.sa_handler = sig_child;     
 
     if (sigaction(SIGCHLD, &sa, NULL) == -1)
+    {
         handle_error("sigaction");
-
+    }
+        
     sfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sfd == -1)
+    {
         handle_error("socket");
+    }
 
     memset(&svaddr, 0, sizeof(struct sockaddr_in));
     svaddr.sin_family = AF_INET;
@@ -62,12 +74,17 @@ int main(int argc, char *argv[])
     svaddr.sin_port = htons(SERVER_PORT);
 
     if (bind(sfd, (struct sockaddr *) &svaddr, sizeof(struct sockaddr_in)) == -1)
+    {
         handle_error("bind");
+    }
 
     if (listen(sfd, BACKLOG) == -1)
+    {
         handle_error("listen");
-        
-    for (;;) {
+    }
+
+    for (;;)
+    {
         cfd = accept(sfd, NULL, NULL);
         if (cfd == -1)
             handle_error("accept");
@@ -93,7 +110,9 @@ int main(int argc, char *argv[])
     }
     
     if (close(sfd) == -1)
+    {
         handle_error("close");
+    }
 
     return 0;
 }

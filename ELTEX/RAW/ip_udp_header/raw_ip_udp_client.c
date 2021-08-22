@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     if (sendto(rawsock_fd, dgram, dgram_len, 0, (struct sockaddr *) &svaddr, 
                 sizeof(struct sockaddr_in)) == -1)
     {
-            handle_error("sendto");
+        handle_error("sendto");
     }
 
     if (close(rawsock_fd) == -1)

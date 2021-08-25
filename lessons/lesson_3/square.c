@@ -43,7 +43,7 @@ int main(void)
     err = square(a, b, c, &x1, &x2);
     if (err == 0)
     {
-      printf("x1=%.2lf, x2=%.2lf\n", x1, x2);
+      printf("x1 = %.2lf, x2 = %.2lf\n", x1, x2);
     }
     else
     {

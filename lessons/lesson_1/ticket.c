@@ -3,9 +3,12 @@
 #include <ctype.h>
 #include <string.h>
 
-#define N 3
-#define BUF_SIZE 100
-#define LENGTH_NUMBER 6
+enum Constants
+{
+    N = 3,
+    BUF_SIZE = 10,
+    LENGTH_NUMBER 6,
+};
 
 void summa_number(int number) 
 {

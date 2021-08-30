@@ -1,22 +1,25 @@
-CC = gcc
-CFLAGS = -g -Wall
+#--- Makefile
 
-SRC=$(wildcard *.c)
-OBJ=$(patsubst %.c,%.o,$(SRC))
+CC=gcc
+CFLAGS=-c -g -Wall -std=c99 
+LDFLAGS=-lrt -lpthread
+SOURCES=server.c client.c headers.c
+EXECUTABLE=server client
 
-EXEC = server client
+.PHONY: all clean
 
-all: $(EXEC)
-	@rm -rf *.o
+all: $(OBJECTS) $(EXECUTABLE)
 
-server: $(OBJ)
-	$(CC) $(CFLAGS) server.o -o $@
+server: headers.o server.o
+	$(CC) headers.o server.o -o $@ $(LDFLAGS)
 
-client: $(OBJ)
-	$(CC) $(CFLAGS) client.o -o $@
+client: headers.o client.o
+	$(CC) headers.o client.o -o $@ $(LDFLAGS)
 
-$(OBJ):	$(SRC)
-	$(CC) $(SRC) -c
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	@rm -rf *.o $(EXEC)
+	rm -f *.o $(EXECUTABLE)
+
+#---------------
